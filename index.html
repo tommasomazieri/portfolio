@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tommaso Mazieri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <!-- Theme init — runs before CSS paint to prevent flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (!saved) saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+
+  <style>
+    /* ─── Light theme (default) ──────────────────────────────── */
+    :root {
+      --bg:            #FAF8F5;
+      --bg-card:       #FFFFFF;
+      --accent:        #C4703F;
+      --accent-dim:    #F0E5D8;
+      --text:          #1E1B18;
+      --text-muted:    #7A7068;
+      --border:        #E5DDD3;
+      --shadow:        0 2px 16px rgba(30,27,24,.07);
+      --shadow-lg:     0 8px 40px rgba(30,27,24,.13);
+      --nav-bg:        rgba(250,248,245,.90);
+      --contact-bg:    #1E1B18;
+      --r:             14px;
+      --nav-h:         64px;
+    }
+
+    /* ─── Dark theme — warm & trustworthy ────────────────────── */
+    [data-theme="dark"] {
+      --bg:            #1A1511;
+      --bg-card:       #231D17;
+      --accent:        #D4844A;
+      --accent-dim:    #3A2010;
+      --text:          #EDE7DE;
+      --text-muted:    #9A8A7C;
+      --border:        #332820;
+      --shadow:        0 2px 16px rgba(0,0,0,.30);
+      --shadow-lg:     0 8px 40px rgba(0,0,0,.50);
+      --nav-bg:        rgba(26,21,17,.92);
+      --contact-bg:    #110E0A;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background .3s, color .3s;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ─── Utility ────────────────────────────────────────────── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .section   { padding: 96px 0; }
+    .section-label {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.18;
+      color: var(--text);
+      margin-bottom: 48px;
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ─── Nav ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--nav-h);
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s, border-color .3s;
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    /* Theme toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 7px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color .2s, background .2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { color: var(--accent); background: var(--accent-dim); }
+    .theme-toggle svg { width: 18px; height: 18px; display: block; }
+    /* Show sun in dark mode, moon in light mode */
+    [data-theme="dark"]  .icon-moon { display: none; }
+    [data-theme="dark"]  .icon-sun  { display: block; }
+    [data-theme="light"] .icon-sun  { display: none; }
+    [data-theme="light"] .icon-moon { display: block; }
+    /* fallback: assume light if no attribute yet */
+    html:not([data-theme="dark"]) .icon-sun  { display: none; }
+    html:not([data-theme="dark"]) .icon-moon { display: block; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 8px;
+      padding: 6px 16px;
+      transition: background .2s, color .2s;
+      flex-shrink: 0;
+    }
+    .nav-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+    }
+    .hero-inner { padding: 80px 0 64px; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 1.5px;
+      background: var(--accent);
+      display: block;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1.06;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .hero-tagline {
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.55;
+      margin-bottom: 40px;
+    }
+    .hero-tagline em {
+      font-style: italic;
+      font-family: 'DM Serif Display', serif;
+      color: var(--text);
+    }
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: .9rem;
+      padding: 12px 24px;
+      border-radius: 10px;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-weight: 500;
+      font-size: .9rem;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+    .hero-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .social-link:hover { color: var(--accent); }
+    .social-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ─── Divider ────────────────────────────────────────────── */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ─── About ──────────────────────────────────────────────── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px 64px;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+    .about-cards { display: flex; flex-direction: column; gap: 16px; }
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: var(--shadow);
+      transition: box-shadow .2s, transform .2s, background .3s, border-color .3s;
+    }
+    .about-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .about-card-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+    .about-card h4 { font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
+    .about-card p { font-size: .82rem; color: var(--text-muted); line-height: 1.5; text-align: justify; }
+
+    /* ─── Experience ─────────────────────────────────────────── */
+    #experience .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0 32px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 168px;
+      top: 10px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+      transition: background .3s;
+    }
+    .timeline-item:last-child::after { display: none; }
+    .timeline-date {
+      font-size: .8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding-top: 2px;
+      text-align: right;
+      line-height: 1.4;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 162px;
+      top: 6px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2.5px solid var(--bg);
+      box-shadow: 0 0 0 1.5px var(--accent);
+      z-index: 1;
+      transition: background .3s, border-color .3s;
+    }
+    .timeline-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      transition: box-shadow .2s, background .3s, border-color .3s;
+    }
+    .timeline-content:hover { box-shadow: var(--shadow-lg); }
+    .timeline-role { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .timeline-company { font-size: .85rem; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+    .timeline-bullets { display: flex; flex-direction: column; gap: 6px; }
+    .timeline-bullets li {
+      font-size: .875rem;
+      color: var(--text-muted);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.55;
+      text-align: justify;
+    }
+    .timeline-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 1.2rem;
+      line-height: 1.2;
+    }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      font-size: .73rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      transition: background .3s;
+    }
+
+    /* ─── Education ──────────────────────────────────────────── */
+    #education .edu-timeline { display: flex; flex-direction: column; }
+    .edu-tl-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0 32px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .edu-tl-item::after {
+      content: '';
+      position: absolute;
+      left: 168px;
+      top: 10px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+      transition: background .3s;
+    }
+    .edu-tl-item:last-child::after { display: none; }
+    .edu-tl-date {
+      font-size: .8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding-top: 2px;
+      text-align: right;
+      line-height: 1.4;
+    }
+    .edu-tl-dot {
+      position: absolute;
+      left: 162px;
+      top: 6px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2.5px solid var(--bg);
+      box-shadow: 0 0 0 1.5px var(--accent);
+      z-index: 1;
+      transition: background .3s, border-color .3s;
+    }
+    .edu-concurrent-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .edu-parallel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow .2s, transform .2s, background .3s, border-color .3s;
+    }
+    .edu-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .edu-school {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .edu-meta { font-size: .8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 3px; }
+    .edu-grade {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .edu-grade::before { content: '★'; color: var(--accent); font-size: .85rem; flex-shrink: 0; }
+    .edu-grade-it {
+      font-size: .73rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    .edu-courses {
+      font-size: .8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: 4px;
+      transition: border-color .3s;
+    }
+
+    /* ─── Projects ───────────────────────────────────────────── */
+    #projects .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 26px 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: box-shadow .2s, transform .2s, background .3s, border-color .3s;
+    }
+    .project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .project-type {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+    .type-personal    { background: #EEF3EE; color: #3A7A3A; }
+    .type-academic    { background: #EEF0F8; color: #3A4A8A; }
+    .type-professional{ background: var(--accent-dim); color: var(--accent); }
+
+    [data-theme="dark"] .type-personal { background: #1A2E1A; color: #72C472; }
+    [data-theme="dark"] .type-academic { background: #1A1E32; color: #7A8ACA; }
+
+    .project-icon { font-size: 1.6rem; line-height: 1; }
+    .project-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      line-height: 1.25;
+      color: var(--text);
+    }
+    .project-desc { font-size: .875rem; color: var(--text-muted); line-height: 1.6; flex: 1; text-align: justify; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tech-tag {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: background .3s, border-color .3s;
+    }
+
+    /* ─── Skills ─────────────────────────────────────────────── */
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .skill-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: background .3s, border-color .3s;
+    }
+    .skill-group-title {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      transition: border-color .3s;
+    }
+    .skill-list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-item { display: flex; align-items: center; gap: 10px; }
+    .skill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .skill-name { font-size: .875rem; color: var(--text); font-weight: 500; }
+
+    /* ─── Languages ──────────────────────────────────────────── */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .lang-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      transition: background .3s, border-color .3s;
+    }
+    .lang-name { font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+    .lang-level { font-size: .8rem; color: var(--text-muted); margin-bottom: 10px; }
+    .lang-bar { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; transition: background .3s; }
+    .lang-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width 1s ease, background .3s;
+    }
+
+    /* ─── Next Step ──────────────────────────────────────────── */
+    #next {
+      background: var(--accent-dim);
+      transition: background .3s;
+    }
+    .next-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      text-align: justify;
+    }
+    .next-intro strong { color: var(--text); font-weight: 600; }
+    .next-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .next-pillar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: background .3s, border-color .3s, box-shadow .2s, transform .2s;
+    }
+    .next-pillar:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .next-pillar-icon { font-size: 1.6rem; margin-bottom: 14px; }
+    .next-pillar h4 {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .next-pillar p {
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    /* ─── Contact ────────────────────────────────────────────── */
+    #contact {
+      background: var(--contact-bg);
+      color: #fff;
+      padding: 96px 0;
+      transition: background .3s;
+    }
+    #contact .section-label { color: var(--accent); }
+    #contact .section-title { color: #fff; margin-bottom: 16px; }
+    .contact-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.5);
+      max-width: 480px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 16px; }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background .2s, border-color .2s;
+    }
+    .contact-link:hover { background: rgba(212,132,74,.18); border-color: rgba(212,132,74,.45); }
+    .contact-link svg { width: 18px; height: 18px; }
+
+    /* ─── Interests panel ───────────────────────────────────── */
+    .interests-panel { display: flex; flex-direction: column; gap: 20px; }
+    .interest-item { display: flex; gap: 14px; align-items: flex-start; }
+    .interest-icon { font-size: 1.4rem; line-height: 1.3; width: 32px; flex-shrink: 0; }
+    .interest-label { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .interest-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.5; }
+    .interest-conviction .interest-desc { color: var(--accent); font-style: italic; }
+
+    /* ─── Project Modal ─────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 620px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 36px 36px 40px;
+      position: relative;
+      transform: translateY(20px) scale(.98);
+      transition: transform .25s ease, background .3s, border-color .3s;
+    }
+    .modal-overlay.open .modal-box {
+      transform: none;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .modal-close:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+    .modal-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .modal-icon { font-size: 1.8rem; line-height: 1; }
+    .modal-type { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 99px; }
+    .modal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .modal-section { margin-bottom: 22px; }
+    .modal-section:last-child { margin-bottom: 0; }
+    .modal-section-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .modal-section-body {
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      text-align: justify;
+    }
+    .modal-section-body ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .modal-section-body ul li { padding-left: 14px; position: relative; }
+    .modal-section-body ul li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--accent); font-size: 1.2rem; line-height: 1.2;
+    }
+    .modal-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .project-card { cursor: pointer; }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    footer {
+      background: var(--contact-bg);
+      color: rgba(255,255,255,.3);
+      text-align: center;
+      font-size: .78rem;
+      padding: 22px 24px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      transition: background .3s;
+    }
+    footer a {
+      color: rgba(255,255,255,.5);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color .2s;
+    }
+    footer a:hover { color: var(--accent); }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      #about .about-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .timeline-item::after { display: none; }
+      .timeline-date { text-align: left; font-size: .75rem; padding-bottom: 6px; }
+      .timeline-dot { display: none; }
+      .edu-tl-item { grid-template-columns: 1fr; }
+      .edu-tl-item::after { display: none; }
+      .edu-tl-date { text-align: left; font-size: .75rem; padding-bottom: 6px; }
+      .edu-tl-dot { display: none; }
+      .edu-parallel { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Project Modal ───────────────────────────────────── -->
+  <div class="modal-overlay" id="projectModal" onclick="handleOverlayClick(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      <div class="modal-tag-row">
+        <span class="modal-icon" id="modalIcon"></span>
+        <span class="modal-type" id="modalType"></span>
+      </div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-section">
+        <div class="modal-section-label">Context</div>
+        <div class="modal-section-body" id="modalContext"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Scope</div>
+        <div class="modal-section-body" id="modalScope"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Activities</div>
+        <div class="modal-section-body" id="modalActivities"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">What I learned</div>
+        <div class="modal-section-body" id="modalLearning"></div>
+      </div>
+      <div class="modal-tech" id="modalTech"></div>
+    </div>
+  </div>
+
+  <!-- ─── Nav ──────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero">TM</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#next">Next Step</a>
+      </div>
+      <div class="nav-right">
+        <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+          <!-- Moon: shown in light mode -->
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <!-- Sun: shown in dark mode -->
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <a class="nav-cta" href="mailto:tommaz.inv@gmail.com">Say hello →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Milan, Italy</div>
+        <h1 class="hero-name">Tommaso<br/>Mazieri</h1>
+        <p class="hero-tagline">
+          Bridging <em>business strategy</em> and emerging technology.
+          I develop understanding through practice — building, testing, and iterating until the picture is complete.
+        </p>
+        <div class="hero-links">
+          <a class="btn-primary" href="mailto:tommaz.inv@gmail.com">Get in touch</a>
+          <a class="btn-ghost" href="#projects">See my projects</a>
+        </div>
+        <div class="hero-socials">
+          <a class="social-link" href="https://www.linkedin.com/in/tommaso-mazieri-926283213/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a class="social-link" href="https://github.com/tommasomazieri" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            GitHub
+          </a>
+          <a class="social-link" href="mailto:tommaz.inv@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            tommaz.inv@gmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── About ─────────────────────────────────────────────── -->
+  <section id="about" class="section">
+    <div class="container">
+      <p class="section-label fade-up">About</p>
+      <h2 class="section-title fade-up">Who I am</h2>
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <p>
+            My approach to learning is fundamentally applied. When a concept or challenge captures
+            my attention — whether a software architecture, a market dynamic, or a physical system —
+            I engage with it directly. Reading is a starting point; <strong>building is where
+            understanding solidifies</strong>.
+          </p>
+          <p>
+            My background sits deliberately at the intersection of <strong>business and
+            technology</strong>. I built my foundation in business administration at Bologna, then
+            expanded into innovation management and agribusiness — two domains where technology is
+            actively redefining competitive advantage. The objective was fluency on both sides:
+            strategic and operational.
+          </p>
+          <p>
+            My most recent professional experience was at PwC Advisory, coordinating a
+            multimillion-euro automotive IT consulting program. In parallel, I pursue personal
+            technical projects — agentic AI systems, a home hydroponic farm, software tools —
+            treating each as a structured opportunity to deepen applied capability.
+          </p>
+          <p>
+            I believe the most effective contributors to innovation are those who can move fluently
+            between strategic thinking and technical execution — and hold both frames simultaneously.
+          </p>
+        </div>
+        <div class="interests-panel fade-up">
+          <div class="interest-item">
+            <div class="interest-icon">♟️</div>
+            <div>
+              <div class="interest-label">Strategy games</div>
+              <div class="interest-desc">Boardgames and videogames — the same systems thinking, at lower stakes.</div>
+            </div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">🥋</div>
+            <div>
+              <div class="interest-label">Judo</div>
+              <div class="interest-desc">Currently on pause — looking to get back on the mat.</div>
+            </div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">🌍</div>
+            <div>
+              <div class="interest-label">Language learning</div>
+              <div class="interest-desc">Italian native · English C1 · Spanish B1 · German in progress. The process of acquiring a language is interesting in itself.</div>
+            </div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">🤖</div>
+            <div>
+              <div class="interest-label">Tech &amp; entrepreneurship</div>
+              <div class="interest-desc">Building things, understanding how they work, finding where they break.</div>
+            </div>
+          </div>
+          <div class="interest-item interest-conviction">
+            <div class="interest-icon">🌾</div>
+            <div>
+              <div class="interest-label">Agricultural innovation</div>
+              <div class="interest-desc">Agriculture triggered the industrial revolution. I think it's where the next one starts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── Experience ────────────────────────────────────────── -->
+  <section id="experience" class="section">
+    <div class="container">
+      <p class="section-label fade-up">Work</p>
+      <h2 class="section-title fade-up">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item fade-up">
+          <div class="timeline-date">Dec 2025<br/>Feb 2026</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Junior Business &amp; Technology Consultant Intern</div>
+            <div class="timeline-company">PwC Italy — Advisory · Milan</div>
+            <ul class="timeline-bullets">
+              <li>Coordinated workstreams and stakeholders in a multimillion-euro automotive IT consulting program.</li>
+              <li>Maintained timelines and produced structured reporting for senior clients across multiple delivery tracks.</li>
+              <li>Operated in a fast-paced, high-accountability consulting environment with direct client exposure.</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Consulting</span>
+              <span class="tag">Stakeholder Management</span>
+              <span class="tag">Project Reporting</span>
+              <span class="tag">Microsoft Office</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-up">
+          <div class="timeline-date">Oct 2023<br/>Feb 2024</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Sales Intern</div>
+            <div class="timeline-company">BeeComs / White Wall srl · Bologna</div>
+            <ul class="timeline-bullets">
+              <li>Managed the sales channel for indoor beacon technology products via phone and email outreach.</li>
+              <li>Handled CRM entries and maintained a clean pipeline for B2B client relationships.</li>
+              <li>Optimized the company website and LinkedIn profile for SEO using Semrush.</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">B2B Sales</span>
+              <span class="tag">CRM</span>
+              <span class="tag">SEO</span>
+              <span class="tag">Semrush</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-up">
+          <div class="timeline-date">Jun 2020<br/>Aug 2020</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-role">Accountant &amp; Clerk</div>
+            <div class="timeline-company">f.lli Binaglia SNC · Po'Bandino (PG)</div>
+            <ul class="timeline-bullets">
+              <li>Recorded delivery notes and invoices in accounting software with high accuracy.</li>
+              <li>Managed and prepared customer orders — first exposure to the operational side of a business.</li>
+            </ul>
+            <div class="timeline-tags">
+              <span class="tag">Accounting Software</span>
+              <span class="tag">Operations</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── Education ─────────────────────────────────────────── -->
+  <section id="education" class="section">
+    <div class="container">
+      <p class="section-label fade-up">Academic background</p>
+      <h2 class="section-title fade-up">Education</h2>
+      <div class="edu-timeline">
+
+        <!-- Parallel masters — same period -->
+        <div class="edu-tl-item fade-up">
+          <div class="edu-tl-date">2024<br/>present</div>
+          <div class="edu-tl-dot"></div>
+          <div>
+            <div class="edu-concurrent-label">Concurrent degrees</div>
+            <div class="edu-parallel">
+              <div class="edu-card">
+                <div class="edu-school">Università Cattolica · Milan</div>
+                <div class="edu-degree">MSc in Innovation &amp; Technology Management</div>
+                <div class="edu-meta"><span>Sep 2024 – present</span></div>
+                <div class="edu-grade">GPA 3.8 / 4.0 <span class="edu-grade-it">(28.8/30 Italian scale)</span></div>
+                <div class="edu-courses">Economics of Innovation · Project &amp; People Management · Design Thinking &amp; Start-Up Launch · Strategies for Emerging Technologies</div>
+              </div>
+              <div class="edu-card">
+                <div class="edu-school">Rome Business School · Rome</div>
+                <div class="edu-degree">Master in Agribusiness Management</div>
+                <div class="edu-meta"><span>Oct 2024 – Sep 2025</span></div>
+                <div class="edu-grade">GPA 3.7 / 4.0 <span class="edu-grade-it">(28/30 Italian scale)</span></div>
+                <div class="edu-courses">Growth Strategy · New Technologies &amp; Innovation in Agribusiness · Sustainable Agribusiness</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bachelor -->
+        <div class="edu-tl-item fade-up">
+          <div class="edu-tl-date">2020<br/>2024</div>
+          <div class="edu-tl-dot"></div>
+          <div class="edu-card">
+            <div class="edu-school">Università di Bologna · Bologna</div>
+            <div class="edu-degree">BSc in Business Administration</div>
+            <div class="edu-meta"><span>Sep 2020 – Mar 2024</span></div>
+            <div class="edu-grade">GPA 3.5 / 4.0 <span class="edu-grade-it">(96/110 Italian final grade)</span></div>
+            <div class="edu-courses">Macroeconomics · Corporate Finance · Corporate Strategy</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── Projects ──────────────────────────────────────────── -->
+  <section id="projects" class="section">
+    <div class="container">
+      <p class="section-label fade-up">What I've built</p>
+      <h2 class="section-title fade-up">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card fade-up" onclick="openProject('boardgame')">
+          <div class="project-header">
+            <div class="project-icon">🎲</div>
+            <span class="project-type type-personal">Personal</span>
+          </div>
+          <div class="project-name">Real Estate Boardgame Companion App</div>
+          <div class="project-desc">Developed a fully functional web companion for a real estate strategy boardgame within two weeks. A self-directed exercise in end-to-end product delivery — from concept to working deployment, without external structure or guidance.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">Claude Code</span>
+            <span class="tech-tag">Gemini CLI</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" onclick="openProject('hydroponic')">
+          <div class="project-header">
+            <div class="project-icon">🌱</div>
+            <span class="project-type type-personal">Personal</span>
+          </div>
+          <div class="project-name">Home Hydroponic Farm</div>
+          <div class="project-desc">Designed, built, and actively monitor a home hydroponic growing system — covering structural design, pump timing, and nutrient tracking. A systems engineering project pursued entirely outside any formal context.</div>
+          <div class="project-tech">
+            <span class="tech-tag">System Design</span>
+            <span class="tech-tag">Monitoring</span>
+            <span class="tech-tag">Iteration</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" onclick="openProject('agentic')">
+          <div class="project-header">
+            <div class="project-icon">🤖</div>
+            <span class="project-type type-personal">Personal</span>
+          </div>
+          <div class="project-name">Design Thinking Agentic Workflows</div>
+          <div class="project-desc">Investigating how autonomous, multi-step AI agents can augment design thinking processes. Uses LangGraph to orchestrate reasoning steps and Claude Code as the primary development environment.</div>
+          <div class="project-tech">
+            <span class="tech-tag">LangGraph</span>
+            <span class="tech-tag">Claude Code</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Agentic AI</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" onclick="openProject('finance')">
+          <div class="project-header">
+            <div class="project-icon">💰</div>
+            <span class="project-type type-personal">Personal</span>
+          </div>
+          <div class="project-name">Personal Finance Tracker</div>
+          <div class="project-desc">A personal investment portfolio tracker developed in Python with a PostgreSQL backend. Motivated by the gap between available tools and individual analytical needs — and a structured opportunity to develop database modelling skills.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Data modelling</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" onclick="openProject('techlab')">
+          <div class="project-header">
+            <div class="project-icon">🏥</div>
+            <span class="project-type type-academic">Academic</span>
+          </div>
+          <div class="project-name">Technology in Action Lab</div>
+          <div class="project-desc">Led research on emerging technologies for two private polyclinics. Defined six solution clusters assessing feasibility, workflow impact, and adoption risks — then delivered a client-ready report to stakeholders.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Research</span>
+            <span class="tech-tag">Tech Assessment</span>
+            <span class="tech-tag">Stakeholder Presentation</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" onclick="openProject('housing')">
+          <div class="project-header">
+            <div class="project-icon">🏠</div>
+            <span class="project-type type-academic">Academic</span>
+          </div>
+          <div class="project-name">Housing Start-up Concept</div>
+          <div class="project-desc">Designed a start-up concept to tackle the social isolation of young professionals in Milan's periphery. Ran the full double diamond — from user research to prototyping — to find and validate problem–solution fit.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Design Thinking</span>
+            <span class="tech-tag">Lean Startup</span>
+            <span class="tech-tag">User Research</span>
+            <span class="tech-tag">Prototyping</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── Skills ────────────────────────────────────────────── -->
+  <section id="skills" class="section">
+    <div class="container">
+      <p class="section-label fade-up">Capabilities</p>
+      <h2 class="section-title fade-up">What I've learned</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Technical</div>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Python</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">JavaScript</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">HTML / CSS</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">SQL / PostgreSQL</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">LangGraph</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Git</span></li>
+          </ul>
+        </div>
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Tools &amp; Platforms</div>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Claude Code</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Microsoft Office Suite</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Semrush (SEO)</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">CRM systems</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Accounting software</span></li>
+          </ul>
+        </div>
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Business &amp; Strategy</div>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Consulting delivery</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Project management</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Design Thinking</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Lean Startup</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Corporate strategy</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">SEO &amp; digital marketing</span></li>
+          </ul>
+        </div>
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Soft Skills</div>
+          <ul class="skill-list">
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Stakeholder management</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Client communication</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Cross-functional teamwork</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Rapid learning</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Attention to detail</span></li>
+            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Problem framing</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="lang-grid">
+        <div class="lang-card fade-up">
+          <div class="lang-name">Italian</div>
+          <div class="lang-level">Native</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-width="100%" style="width:0%"></div></div>
+        </div>
+        <div class="lang-card fade-up">
+          <div class="lang-name">English</div>
+          <div class="lang-level">C1 — IELTS Academic 7.5</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-width="88%" style="width:0%"></div></div>
+        </div>
+        <div class="lang-card fade-up">
+          <div class="lang-name">Spanish</div>
+          <div class="lang-level">B1</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-width="55%" style="width:0%"></div></div>
+        </div>
+        <div class="lang-card fade-up">
+          <div class="lang-name">German</div>
+          <div class="lang-level">A2 → B1 in progress</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-width="28%" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Next Step ────────────────────────────────────────── -->
+  <section id="next" class="section">
+    <div class="container">
+      <p class="section-label fade-up">Next step</p>
+      <h2 class="section-title fade-up">What I'm looking for</h2>
+      <p class="next-intro fade-up">
+        I want to work in <strong>innovation management</strong> — the work that moves an idea
+        from concept to something real. That means a corporate innovation unit, an R&amp;D team,
+        or an early-stage startup where I'd own concrete pieces of the process:
+        scoping what gets built, running design research, coordinating the go-to-market.
+        I'm not there to watch — I'm there to get things done.
+      </p>
+      <div class="next-pillars">
+        <div class="next-pillar fade-up">
+          <div class="next-pillar-icon">🏗️</div>
+          <h4>Innovation &amp; R&amp;D management</h4>
+          <p>Project manager or coordinator inside a corporate innovation unit or R&amp;D function — running feasibility studies, managing the pipeline from idea to prototype, translating technical outputs into business decisions.</p>
+        </div>
+        <div class="next-pillar fade-up">
+          <div class="next-pillar-icon">🚀</div>
+          <h4>Early-stage startup</h4>
+          <p>A founding team or seed-stage company where I'd take ownership of real deliverables: defining MVP scope, running user interviews and design sprints, mapping the go-to-market, iterating on problem–solution fit.</p>
+        </div>
+        <div class="next-pillar fade-up">
+          <div class="next-pillar-icon">🔁</div>
+          <h4>Where business and build overlap</h4>
+          <p>Product manager, innovation analyst, or venture builder roles where understanding the technology is as important as understanding the market — and where moving between both is the actual job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ─── Contact ───────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Let's connect</p>
+      <h2 class="section-title">Get in touch</h2>
+      <p class="contact-subtitle">If you are working on something at the edge of innovation and think my profile is relevant — I would be glad to connect.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:tommaz.inv@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          tommaz.inv@gmail.com
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/tommaso-mazieri-926283213/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-link" href="https://github.com/tommasomazieri" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Tommaso Mazieri · Built with <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a> — because AI-native is the new full-stack</p>
+  </footer>
+
+  <!-- ─── JS ────────────────────────────────────────────────── -->
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      var html = document.documentElement;
+      var current = html.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    // Fade-up on scroll
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          e.target.querySelectorAll('.lang-bar-fill[data-width]').forEach(function(bar) {
+            bar.style.width = bar.dataset.width;
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
+    document.querySelectorAll('.lang-card').forEach(function(el) { observer.observe(el); });
+
+    // ─── Project modal ────────────────────────────────────────
+    var projects = {
+      boardgame: {
+        icon: '🎲',
+        type: 'Personal',
+        typeClass: 'type-personal',
+        title: 'Real Estate Boardgame Companion App',
+        context: 'A personal project I am actively designing and developing: a physical Real Estate boardgame played on a 3D city grid, covering properties, deals, ownership, and debt. The companion app is part of the same project — built to handle the financial and administrative side of play so the physical game can stay focused on strategy.',
+        scope: 'Build a web app where players join a shared session and use their phones to manage all the accounting and ownership logic of the game in real time — while the physical boardgame runs on the table in front of them. Each player sees their own state; transactions are logged and reflected across the session.',
+        activities: [
+          'Mapped the full game logic to define what data the app needed to track (properties, balances, transactions, ownership transfers)',
+          'Designed the session architecture: how players join, how state is shared, how conflicts are resolved',
+          'Started development in PyCharm; used Gemini CLI for early scaffolding, then switched to Claude Code for the bulk of iteration',
+          'Handled multiplayer state sync, real-time updates, and edge cases like bankruptcy and asset liquidation',
+          'Shipped a working deployment within two weeks from blank slate'
+        ],
+        learning: [
+          'Structuring a multi-player application: session management, shared state, concurrency issues',
+          'Data-driven programming: modelling a complex domain (game rules, ownership, financial flows) cleanly in code',
+          'Designing a highly modular architecture where each component exposes its own API and communicates through it — learning firsthand what that means for development speed, debugging, and maintainability',
+          'Practical use of agentic coding tools (Claude Code) as a development accelerant — not a replacement for design thinking'
+        ],
+        tags: ['Python', 'JavaScript', 'HTML/CSS', 'Claude Code', 'Gemini CLI']
+      },
+      hydroponic: {
+        icon: '🌱',
+        type: 'Personal',
+        typeClass: 'type-personal',
+        title: 'Home Hydroponic Farm',
+        context: 'Agritech and agricultural innovation are my main area of passion. Before identifying where the gaps are, I wanted to understand hydroponic systems from the inside — not through papers or case studies, but by actually running one and hitting the problems firsthand.',
+        scope: 'Design and build a functioning vertical hydroponic setup at home — two distinct systems in parallel — and instrument them with environmental sensors to collect real growing data.',
+        activities: [
+          'Built a 3-floor rack system insulated with a grow tent and grow lights, using DWC (Deep Water Culture) trays for the growing medium',
+          'Built a second system in parallel: a 3D printed hydroponic tower, to compare vertical tower dynamics against the flat DWC approach',
+          'Designed and assembled an Arduino-based sensor system to track key environmental variables: temperature, humidity, light cycles, and nutrient solution levels',
+          'Ran multiple growing cycles across both systems, tracking outcomes crop by crop',
+          'Successfully grew pak choy, multiple basil varieties, parsley, and strawberries',
+          'Identified failure modes: salad/lettuce consistently failed due to temperature running too high (especially in summer) from insufficient insulation; rosemary proved difficult to establish in hydroponic conditions'
+        ],
+        learning: [
+          'Deep practical understanding of hydroponic systems — where they work well, where they break down, and what the real engineering challenges are (temperature management, insulation, root zone control)',
+          'The gap between what hydroponic growing looks like on paper and what it requires operationally — which is exactly where innovation opportunities live',
+          'Arduino-based sensor integration: translating physical measurements into actionable data',
+          'How to run a self-directed technical project through failure iterations without losing direction'
+        ],
+        tags: ['Hydroponics', 'Arduino', 'Agritech', 'System Design', 'Sensors', 'DWC']
+      },
+      agentic: {
+        icon: '🤖',
+        type: 'Personal',
+        typeClass: 'type-personal',
+        title: 'Design Thinking Agentic Workflows',
+        context: 'Design thinking is a structured process — empathize, define, ideate, prototype, test — but in practice it is labor-intensive and heavily dependent on facilitation quality. The question: how much of that process can autonomous AI agents handle, augment, or accelerate?',
+        scope: 'Build a prototype where AI agents run through the phases of a design thinking process with minimal human input — generating user personas, reframing problem statements, producing ideation outputs, and flagging assumptions that need validation.',
+        activities: [
+          'Mapped the design thinking phases to discrete agent tasks and defined handoff points between them',
+          'Used LangGraph to orchestrate multi-step reasoning chains across agents with shared memory',
+          'Used Claude Code as the primary development environment throughout',
+          'Experimented with different prompting strategies to improve the quality of ideation and synthesis outputs',
+          'Evaluated outputs against what a human-facilitated session would produce — gap analysis ongoing'
+        ],
+        learning: [
+          'Agentic AI architecture: how to structure agent roles, memory, and handoffs in a multi-step pipeline',
+          'Where LLMs perform well in creative processes (divergent ideation, reframing) and where they fall short (genuine user empathy, contextual judgment)',
+          'LangGraph as an orchestration layer: state management, conditional branching, error handling',
+          'The limits of automation in human-centered processes — and what that implies for where AI tools add the most value'
+        ],
+        tags: ['LangGraph', 'Claude Code', 'Python', 'Agentic AI', 'Prompt Engineering']
+      },
+      finance: {
+        icon: '💰',
+        type: 'Personal',
+        typeClass: 'type-personal',
+        title: 'Personal Finance Tracker',
+        context: 'Available portfolio tracking tools were either too simple (no custom metrics) or too complex and generic (built for institutional use). The gap was a clean tool that tracked exactly the things I cared about — asset allocation, return attribution, position history.',
+        scope: 'A personal investment portfolio tracker built in Python with a PostgreSQL backend. Designed to ingest transaction history, compute portfolio metrics, and surface the data in a queryable format — structured around my own analytical needs rather than a generic feature set.',
+        activities: [
+          'Designed the database schema from scratch: tables for positions, transactions, assets, and historical prices',
+          'Wrote Python scripts to ingest and clean transaction data from broker exports',
+          'Built SQL queries to compute return metrics, allocation breakdowns, and position-level P&L',
+          'Iterated on the data model as new analytical questions surfaced'
+        ],
+        learning: [
+          'Relational database design: how to model a domain with evolving requirements without painting yourself into a corner',
+          'SQL as an analytical tool — not just data retrieval, but computation and aggregation logic',
+          'Python data pipelines: ingestion, transformation, validation',
+          'The value of building tools for yourself: the spec is always honest, and the feedback loop is immediate'
+        ],
+        tags: ['Python', 'PostgreSQL', 'SQL', 'Data Modelling']
+      },
+      techlab: {
+        icon: '🏥',
+        type: 'Academic',
+        typeClass: 'type-academic',
+        title: 'Technology in Action Lab',
+        context: 'A lab course at Università Cattolica where student teams act as technology consultants for real companies. Our client: two private polyclinics looking to understand which emerging technologies were worth investing in and how they would affect clinical and administrative workflows.',
+        scope: 'Conduct a structured technology assessment across the polyclinics\' operations — identify relevant emerging technologies, evaluate feasibility and impact, and deliver a client-ready report with prioritized recommendations.',
+        activities: [
+          'Ran discovery interviews with clinical and operational staff to map pain points and workflow bottlenecks',
+          'Researched emerging technologies relevant to private healthcare: AI diagnostics, patient flow automation, digital intake, remote monitoring',
+          'Defined six solution clusters and assessed each on feasibility, implementation effort, workflow disruption, and adoption risk',
+          'Produced a structured report and delivered a stakeholder presentation to clinic management'
+        ],
+        learning: [
+          'How to run a technology assessment in a domain you are not an expert in — and how to ask the right questions to compensate',
+          'Structuring ambiguous briefs into actionable deliverables with clear criteria',
+          'Healthcare sector dynamics: regulatory constraints, change resistance, the gap between what technology can do and what organisations will adopt',
+          'Client communication: how to present tradeoffs clearly to non-technical decision makers'
+        ],
+        tags: ['Tech Assessment', 'Research', 'Healthcare', 'Stakeholder Presentation', 'Consulting']
+      },
+      housing: {
+        icon: '🏠',
+        type: 'Academic',
+        typeClass: 'type-academic',
+        title: 'Milan Community Start-up Concept',
+        context: 'A course project at Università Cattolica on housing and urban living in Milan.',
+        scope: 'Design and validate a start-up concept to tackle the social isolation of young professionals living in the peripheries of Milan. The idea: an app to build local community in the neighbourhoods where people actually live, not where they go to socialise on weekends. Deliverable was evidence of problem–solution fit — not a business plan.',
+        activities: [
+          'Ran the full double diamond: broad discovery phase first, then convergence on the real problem, then ideation, then prototyping',
+          'Conducted user research with young professionals new to Milan — mapped how they experienced the city, where they felt excluded, and what they actually wanted from their neighbourhood',
+          'Synthesised research into a shared problem framing the team aligned on before generating any solutions',
+          'Ideated and stress-tested multiple solution directions; selected the most promising for prototyping',
+          'Built and iterated a low-fidelity prototype; ran a second round of user feedback to validate core assumptions',
+          'Pitched the refined concept with supporting evidence to faculty and external reviewers'
+        ],
+        learning: [
+          'How to run a Design Thinking process as an actual practice, not a slide deck — the double diamond in full, from research through prototyping',
+          'How to conduct user interviews that surface real needs rather than confirming what you already think',
+          'The difference between the problem users report and the problem worth solving — reframing "I can\'t afford housing" into "I end up alone" required real research, not assumption',
+          'How to push an innovation project forward with a team: aligning on a problem, managing divergence during ideation, making decisions under uncertainty'
+        ],
+        tags: ['Design Thinking', 'Double Diamond', 'User Research', 'Prototyping', 'Community Design', 'Pitch']
+      }
+    };
+
+    function openProject(id) {
+      var p = projects[id];
+      if (!p) return;
+      document.getElementById('modalIcon').textContent = p.icon;
+      var typeEl = document.getElementById('modalType');
+      typeEl.textContent = p.type;
+      typeEl.className = 'modal-type ' + p.typeClass;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalContext').textContent = p.context;
+      document.getElementById('modalScope').textContent = p.scope;
+      var actEl = document.getElementById('modalActivities');
+      actEl.innerHTML = '<ul>' + p.activities.map(function(a) { return '<li>' + a + '</li>'; }).join('') + '</ul>';
+      var learnEl = document.getElementById('modalLearning');
+      learnEl.innerHTML = '<ul>' + p.learning.map(function(l) { return '<li>' + l + '</li>'; }).join('') + '</ul>';
+      var techEl = document.getElementById('modalTech');
+      techEl.innerHTML = p.tags.map(function(t) { return '<span class="tech-tag">' + t + '</span>'; }).join('');
+      document.getElementById('projectModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('projectModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('projectModal')) closeModal();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Active nav link highlight
+    var sections = document.querySelectorAll('section[id]');
+    var navLinks = document.querySelectorAll('.nav-links a');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          navLinks.forEach(function(a) {
+            a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--accent)' : '';
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function(s) { io.observe(s); });
+  </script>
+</body>
+</html>
