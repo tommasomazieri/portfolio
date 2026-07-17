@@ -6,7 +6,7 @@
   <title>Tommaso Mazieri</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
 
   <!-- Theme init — runs before CSS paint to prevent flash -->
   <script>
@@ -18,43 +18,43 @@
   </script>
 
   <style>
-    /* ─── Light theme (default) ──────────────────────────────── */
+    /* ─── Light theme — paper + ink + one stamp color ──────────── */
     :root {
-      --bg:            #FAF8F5;
+      --bg:            #F7F6F3;
       --bg-card:       #FFFFFF;
-      --accent:        #C4703F;
-      --accent-dim:    #F0E5D8;
-      --text:          #1E1B18;
-      --text-muted:    #7A7068;
-      --border:        #E5DDD3;
-      --shadow:        0 2px 16px rgba(30,27,24,.07);
-      --shadow-lg:     0 8px 40px rgba(30,27,24,.13);
-      --nav-bg:        rgba(250,248,245,.90);
-      --contact-bg:    #1E1B18;
-      --r:             14px;
+      --accent:        #A75E33;
+      --on-accent:     #FFFFFF;
+      --accent-dim:    #ECD9C4;
+      --text:          #17140F;
+      --text-muted:    #5A5248;
+      --border:        #E2DED6;
+      --shadow-lg:     0 16px 40px rgba(23,20,15,.18);
+      --nav-bg:        rgba(247,246,243,.90);
+      --contact-bg:    #17140F;
+      --r:             6px;
       --nav-h:         64px;
     }
 
-    /* ─── Dark theme — warm & trustworthy ────────────────────── */
+    /* ─── Dark theme — boardroom ─────────────────────────────── */
     [data-theme="dark"] {
-      --bg:            #1A1511;
-      --bg-card:       #231D17;
+      --bg:            #15120E;
+      --bg-card:       #1E1914;
       --accent:        #D4844A;
+      --on-accent:     #15120E;
       --accent-dim:    #3A2010;
-      --text:          #EDE7DE;
-      --text-muted:    #9A8A7C;
-      --border:        #332820;
-      --shadow:        0 2px 16px rgba(0,0,0,.30);
-      --shadow-lg:     0 8px 40px rgba(0,0,0,.50);
-      --nav-bg:        rgba(26,21,17,.92);
-      --contact-bg:    #110E0A;
+      --text:          #F0EBE3;
+      --text-muted:    #A79A8C;
+      --border:        #2E271F;
+      --shadow-lg:     0 16px 40px rgba(0,0,0,.55);
+      --nav-bg:        rgba(21,18,14,.92);
+      --contact-bg:    #0D0B08;
     }
 
     /* ─── Reset ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Source Serif 4', serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
@@ -64,31 +64,36 @@
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     ul { list-style: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
 
     /* ─── Utility ────────────────────────────────────────────── */
     .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
     .section   { padding: 96px 0; }
-    .section-label {
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
+    /* One recognizable device instead of a repeated eyebrow caption:
+       a short accent rule above every section headline. Graphic mark, not a text kicker. */
     .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      line-height: 1.18;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      letter-spacing: -0.02em;
+      line-height: 1.14;
       color: var(--text);
-      margin-bottom: 48px;
+      margin-bottom: 40px;
+      text-wrap: balance;
     }
-    .fade-up {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .55s ease, transform .55s ease;
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--accent);
+      margin-bottom: 18px;
     }
-    .fade-up.visible { opacity: 1; transform: none; }
 
     /* ─── Nav ────────────────────────────────────────────────── */
     nav {
@@ -113,15 +118,18 @@
       gap: 16px;
     }
     .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
       color: var(--text);
       flex-shrink: 0;
     }
-    .nav-links { display: flex; gap: 28px; }
+    .nav-links { display: flex; gap: 26px; }
     .nav-links a {
-      font-size: .875rem;
-      font-weight: 500;
+      font-family: 'Archivo', sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
       color: var(--text-muted);
       transition: color .2s;
     }
@@ -135,7 +143,7 @@
       cursor: pointer;
       color: var(--text-muted);
       padding: 7px;
-      border-radius: 8px;
+      border-radius: var(--r);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -144,12 +152,10 @@
     }
     .theme-toggle:hover { color: var(--accent); background: var(--accent-dim); }
     .theme-toggle svg { width: 18px; height: 18px; display: block; }
-    /* Show sun in dark mode, moon in light mode */
     [data-theme="dark"]  .icon-moon { display: none; }
     [data-theme="dark"]  .icon-sun  { display: block; }
     [data-theme="light"] .icon-sun  { display: none; }
     [data-theme="light"] .icon-moon { display: block; }
-    /* fallback: assume light if no attribute yet */
     html:not([data-theme="dark"]) .icon-sun  { display: none; }
     html:not([data-theme="dark"]) .icon-moon { display: block; }
 
@@ -157,16 +163,17 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: .875rem;
-      font-weight: 600;
+      font-family: 'Archivo', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
       color: var(--accent);
       border: 1.5px solid var(--accent);
-      border-radius: 8px;
-      padding: 6px 16px;
+      border-radius: var(--r);
+      padding: 7px 16px;
       transition: background .2s, color .2s;
       flex-shrink: 0;
     }
-    .nav-cta:hover { background: var(--accent); color: #fff; }
+    .nav-cta:hover { background: var(--accent); color: var(--on-accent); }
 
     /* ─── Hero ───────────────────────────────────────────────── */
     #hero {
@@ -176,42 +183,38 @@
       padding-top: var(--nav-h);
     }
     .hero-inner { padding: 80px 0 64px; }
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      width: 28px; height: 1.5px;
-      background: var(--accent);
-      display: block;
+    .hero-dateline {
+      font-style: italic;
+      font-size: .95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
     }
     .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      line-height: 1.06;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.75rem, 7.5vw, 5rem);
+      letter-spacing: -0.03em;
+      line-height: 1.04;
       color: var(--text);
       margin-bottom: 24px;
+      text-wrap: balance;
+    }
+    .hero-mark {
+      display: block;
+      width: 52px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--accent);
+      margin-bottom: 28px;
     }
     .hero-tagline {
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-size: clamp(1.1rem, 2.3vw, 1.3rem);
       color: var(--text-muted);
       max-width: 560px;
-      line-height: 1.55;
+      line-height: 1.6;
       margin-bottom: 40px;
     }
-    .hero-tagline em {
-      font-style: italic;
-      font-family: 'DM Serif Display', serif;
-      color: var(--text);
-    }
+    .hero-tagline em { font-style: italic; color: var(--text); }
     .hero-links {
       display: flex;
       flex-wrap: wrap;
@@ -223,11 +226,12 @@
       align-items: center;
       gap: 8px;
       background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      font-size: .9rem;
-      padding: 12px 24px;
-      border-radius: 10px;
+      color: var(--on-accent);
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+      padding: 13px 24px;
+      border-radius: var(--r);
       transition: opacity .2s, transform .2s;
     }
     .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
@@ -236,30 +240,49 @@
       align-items: center;
       gap: 8px;
       color: var(--text);
-      font-weight: 500;
-      font-size: .9rem;
-      padding: 12px 24px;
-      border-radius: 10px;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 600;
+      font-size: .88rem;
+      padding: 13px 24px;
+      border-radius: var(--r);
       border: 1.5px solid var(--border);
       transition: border-color .2s, color .2s, transform .2s;
     }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-    .hero-socials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+    .hero-socials { display: flex; flex-wrap: wrap; gap: 20px; }
     .social-link {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: .85rem;
+      font-family: 'Archivo', sans-serif;
+      font-size: .82rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
       transition: color .2s;
     }
     .social-link:hover { color: var(--accent); }
     .social-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* One deliberate hero-load sequence — pure CSS, no JS dependency,
+       nothing hidden if scripting fails. This is the entire motion budget. */
+    .hero-dateline, .hero-name, .hero-mark, .hero-tagline, .hero-links, .hero-socials {
+      animation: heroReveal .7s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-dateline { animation-delay: .02s; }
+    .hero-name     { animation-delay: .12s; }
+    .hero-mark     { animation-delay: .30s; }
+    .hero-tagline  { animation-delay: .36s; }
+    .hero-links    { animation-delay: .50s; }
+    .hero-socials  { animation-delay: .62s; }
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-dateline, .hero-name, .hero-mark, .hero-tagline, .hero-links, .hero-socials {
+        animation: none;
+      }
+    }
 
     /* ─── Divider ────────────────────────────────────────────── */
     .divider { border: none; border-top: 1px solid var(--border); }
@@ -276,25 +299,10 @@
       font-size: 1.05rem;
       margin-bottom: 16px;
       text-align: justify;
+      text-wrap: pretty;
     }
     .about-text p:last-child { margin-bottom: 0; }
     .about-text strong { color: var(--text); font-weight: 600; }
-    .about-cards { display: flex; flex-direction: column; gap: 16px; }
-    .about-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 20px 22px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      box-shadow: var(--shadow);
-      transition: box-shadow .2s, transform .2s, background .3s, border-color .3s;
-    }
-    .about-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
-    .about-card-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
-    .about-card h4 { font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
-    .about-card p { font-size: .82rem; color: var(--text-muted); line-height: 1.5; text-align: justify; }
 
     /* ─── Experience ─────────────────────────────────────────── */
     #experience .timeline { display: flex; flex-direction: column; gap: 0; }
@@ -340,15 +348,26 @@
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 22px 24px;
-      box-shadow: var(--shadow);
-      transition: box-shadow .2s, background .3s, border-color .3s;
+      transition: border-color .2s, background .3s;
     }
-    .timeline-content:hover { box-shadow: var(--shadow-lg); }
-    .timeline-role { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .timeline-company { font-size: .85rem; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+    .timeline-content:hover { border-color: var(--accent); }
+    .timeline-role {
+      font-family: 'Archivo', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .timeline-company {
+      font-family: 'Archivo', sans-serif;
+      font-size: .82rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
     .timeline-bullets { display: flex; flex-direction: column; gap: 6px; }
     .timeline-bullets li {
-      font-size: .875rem;
+      font-size: .9rem;
       color: var(--text-muted);
       padding-left: 14px;
       position: relative;
@@ -365,14 +384,15 @@
     }
     .timeline-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
     .tag {
-      font-size: .73rem;
-      font-weight: 600;
-      letter-spacing: .04em;
+      font-family: 'Archivo', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .02em;
       padding: 3px 10px;
       border-radius: 99px;
-      background: var(--accent-dim);
-      color: var(--accent);
-      transition: background .3s;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: border-color .3s;
     }
 
     /* ─── Education ──────────────────────────────────────────── */
@@ -415,9 +435,10 @@
       transition: background .3s, border-color .3s;
     }
     .edu-concurrent-label {
+      font-family: 'Archivo', sans-serif;
       font-size: .7rem;
       font-weight: 700;
-      letter-spacing: .1em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 14px;
@@ -432,23 +453,25 @@
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 22px 20px;
-      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: box-shadow .2s, transform .2s, background .3s, border-color .3s;
+      transition: border-color .2s, background .3s;
     }
-    .edu-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .edu-card:hover { border-color: var(--accent); }
     .edu-school {
-      font-size: .75rem;
+      font-family: 'Archivo', sans-serif;
+      font-size: .72rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: .06em;
       text-transform: uppercase;
       color: var(--accent);
     }
     .edu-degree {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
       line-height: 1.3;
       color: var(--text);
     }
@@ -458,19 +481,21 @@
       align-items: baseline;
       gap: 8px;
       flex-wrap: wrap;
+      font-family: 'Archivo', sans-serif;
       font-size: .8rem;
-      font-weight: 600;
-      color: var(--text);
+      font-weight: 700;
+      color: var(--accent);
       margin-top: 4px;
     }
-    .edu-grade::before { content: '★'; color: var(--accent); font-size: .85rem; flex-shrink: 0; }
     .edu-grade-it {
-      font-size: .73rem;
+      font-family: 'Source Serif 4', serif;
+      font-style: italic;
+      font-size: .78rem;
       font-weight: 400;
       color: var(--text-muted);
     }
     .edu-courses {
-      font-size: .8rem;
+      font-size: .82rem;
       color: var(--text-muted);
       line-height: 1.5;
       border-top: 1px solid var(--border);
@@ -490,43 +515,46 @@
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 26px 24px;
-      box-shadow: var(--shadow);
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      transition: box-shadow .2s, transform .2s, background .3s, border-color .3s;
+      transition: border-color .2s, transform .2s, background .3s;
     }
-    .project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
     .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .project-type {
-      font-size: .68rem;
+    .project-type, .modal-type {
+      font-family: 'Archivo', sans-serif;
+      font-size: .66rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: .06em;
       text-transform: uppercase;
       padding: 3px 9px;
       border-radius: 99px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
       flex-shrink: 0;
     }
-    .type-personal    { background: #EEF3EE; color: #3A7A3A; }
-    .type-academic    { background: #EEF0F8; color: #3A4A8A; }
-    .type-professional{ background: var(--accent-dim); color: var(--accent); }
-
-    [data-theme="dark"] .type-personal { background: #1A2E1A; color: #72C472; }
-    [data-theme="dark"] .type-academic { background: #1A1E32; color: #7A8ACA; }
-
-    .project-icon { font-size: 1.6rem; line-height: 1; }
+    .project-icon, .interest-icon, .modal-icon { color: var(--text-muted); }
+    .project-icon svg, .interest-icon svg { width: 22px; height: 22px; display: block; }
+    .interest-icon { width: 32px; flex-shrink: 0; padding-top: 2px; }
+    .modal-icon { display: inline-flex; }
+    .modal-icon svg { width: 26px; height: 26px; display: block; }
     .project-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      line-height: 1.25;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+      line-height: 1.28;
       color: var(--text);
     }
-    .project-desc { font-size: .875rem; color: var(--text-muted); line-height: 1.6; flex: 1; text-align: justify; }
+    .project-desc { font-size: .9rem; color: var(--text-muted); line-height: 1.6; flex: 1; text-align: justify; }
     .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
     .tech-tag {
-      font-size: .7rem;
+      font-family: 'Archivo', sans-serif;
+      font-size: .68rem;
       font-weight: 600;
-      letter-spacing: .03em;
+      letter-spacing: .02em;
       padding: 3px 9px;
       border-radius: 6px;
       background: var(--bg);
@@ -535,62 +563,69 @@
       transition: background .3s, border-color .3s;
     }
 
-    /* ─── Skills ─────────────────────────────────────────────── */
-    #skills .skills-grid {
+    /* ─── Skills — report table, not cards ──────────────────── */
+    .skills-table { display: flex; flex-direction: column; }
+    .skills-row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 24px;
-    }
-    .skill-group {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      transition: background .3s, border-color .3s;
-    }
-    .skill-group-title {
-      font-size: .7rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+      grid-template-columns: 200px 1fr;
+      gap: 8px 32px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
       transition: border-color .3s;
     }
-    .skill-list { display: flex; flex-direction: column; gap: 10px; }
-    .skill-item { display: flex; align-items: center; gap: 10px; }
-    .skill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-    .skill-name { font-size: .875rem; color: var(--text); font-weight: 500; }
+    .skills-row:last-child { border-bottom: 1px solid var(--border); }
+    .skills-cat {
+      font-family: 'Archivo', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text);
+      padding-top: 2px;
+    }
+    .skills-items { display: flex; flex-wrap: wrap; }
+    .skills-items li {
+      font-size: .9rem;
+      color: var(--text-muted);
+      padding: 0 18px 0 0;
+      margin-right: 18px;
+      border-right: 1px solid var(--border);
+    }
+    .skills-items li:last-child { border-right: none; margin-right: 0; padding-right: 0; }
 
-    /* ─── Languages ──────────────────────────────────────────── */
-    .lang-grid {
+    /* ─── Languages — compact rows, not cards ───────────────── */
+    .lang-table { display: flex; flex-direction: column; margin-top: 8px; }
+    .lang-row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: 120px 1fr 170px;
+      align-items: center;
       gap: 16px;
-      margin-top: 32px;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
     }
-    .lang-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      transition: background .3s, border-color .3s;
+    .lang-row:last-child { border-bottom: 1px solid var(--border); }
+    .lang-name {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--text);
     }
-    .lang-name { font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
-    .lang-level { font-size: .8rem; color: var(--text-muted); margin-bottom: 10px; }
-    .lang-bar { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; transition: background .3s; }
+    .lang-level { font-style: italic; font-size: .85rem; color: var(--text-muted); }
+    .lang-bar { height: 3px; background: var(--border); border-radius: 99px; overflow: hidden; transition: background .3s; }
     .lang-bar-fill {
+      width: 100%;
       height: 100%;
       background: var(--accent);
       border-radius: 99px;
-      transition: width 1s ease, background .3s;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1s cubic-bezier(.22,1,.36,1), background .3s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lang-bar-fill { transition: background .3s; }
     }
 
-    /* ─── Next Step ──────────────────────────────────────────── */
+    /* ─── Next Step — enumerated list, not pillar cards ─────── */
     #next {
       background: var(--accent-dim);
       transition: background .3s;
@@ -604,33 +639,32 @@
       text-align: justify;
     }
     .next-intro strong { color: var(--text); font-weight: 600; }
-    .next-pillars {
+    .next-list { display: flex; flex-direction: column; }
+    .next-item {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: 64px 1fr;
       gap: 20px;
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      transition: border-color .3s;
     }
-    .next-pillar {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      transition: background .3s, border-color .3s, box-shadow .2s, transform .2s;
+    .next-item:last-child { border-bottom: 1px solid var(--border); }
+    .next-num {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 900;
+      font-size: 1.9rem;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      line-height: 1;
     }
-    .next-pillar:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
-    .next-pillar-icon { font-size: 1.6rem; margin-bottom: 14px; }
-    .next-pillar h4 {
-      font-size: .95rem;
-      font-weight: 600;
+    .next-item h4 {
+      font-family: 'Archivo', sans-serif;
+      font-size: .98rem;
+      font-weight: 700;
       color: var(--text);
       margin-bottom: 8px;
     }
-    .next-pillar p {
-      font-size: .85rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      text-align: justify;
-    }
+    .next-item p { font-size: .9rem; color: var(--text-muted); line-height: 1.6; text-align: justify; }
 
     /* ─── Contact ────────────────────────────────────────────── */
     #contact {
@@ -639,11 +673,10 @@
       padding: 96px 0;
       transition: background .3s;
     }
-    #contact .section-label { color: var(--accent); }
-    #contact .section-title { color: #fff; margin-bottom: 16px; }
+    #contact .section-title { color: #fff; }
     .contact-subtitle {
       font-size: 1.05rem;
-      color: rgba(255,255,255,.5);
+      color: rgba(255,255,255,.55);
       max-width: 480px;
       margin-bottom: 40px;
       line-height: 1.6;
@@ -654,24 +687,24 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      font-size: .9rem;
-      font-weight: 600;
+      font-family: 'Archivo', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
       color: #fff;
       background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.12);
       padding: 12px 22px;
-      border-radius: 10px;
+      border-radius: var(--r);
       transition: background .2s, border-color .2s;
     }
-    .contact-link:hover { background: rgba(212,132,74,.18); border-color: rgba(212,132,74,.45); }
+    .contact-link:hover { background: rgba(212,132,74,.18); border-color: rgba(212,132,74,.5); }
     .contact-link svg { width: 18px; height: 18px; }
 
     /* ─── Interests panel ───────────────────────────────────── */
-    .interests-panel { display: flex; flex-direction: column; gap: 20px; }
+    .interests-panel { display: flex; flex-direction: column; gap: 22px; }
     .interest-item { display: flex; gap: 14px; align-items: flex-start; }
-    .interest-icon { font-size: 1.4rem; line-height: 1.3; width: 32px; flex-shrink: 0; }
-    .interest-label { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .interest-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.5; }
+    .interest-label { font-family: 'Archivo', sans-serif; font-size: .92rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .interest-desc { font-size: .87rem; color: var(--text-muted); line-height: 1.5; }
     .interest-conviction .interest-desc { color: var(--accent); font-style: italic; }
 
     /* ─── Project Modal ─────────────────────────────────────── */
@@ -690,14 +723,11 @@
       pointer-events: none;
       transition: opacity .25s ease;
     }
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
     .modal-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 12px;
       box-shadow: var(--shadow-lg);
       width: 100%;
       max-width: 620px;
@@ -708,15 +738,13 @@
       transform: translateY(20px) scale(.98);
       transition: transform .25s ease, background .3s, border-color .3s;
     }
-    .modal-overlay.open .modal-box {
-      transform: none;
-    }
+    .modal-overlay.open .modal-box { transform: none; }
     .modal-close {
       position: absolute;
       top: 16px; right: 16px;
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--r);
       width: 32px; height: 32px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
@@ -727,11 +755,11 @@
     }
     .modal-close:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
     .modal-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .modal-icon { font-size: 1.8rem; line-height: 1; }
-    .modal-type { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 99px; }
     .modal-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
       line-height: 1.25;
       color: var(--text);
       margin-bottom: 28px;
@@ -739,15 +767,16 @@
     .modal-section { margin-bottom: 22px; }
     .modal-section:last-child { margin-bottom: 0; }
     .modal-section-label {
+      font-family: 'Archivo', sans-serif;
       font-size: .68rem;
       font-weight: 700;
-      letter-spacing: .12em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 8px;
     }
     .modal-section-body {
-      font-size: .9rem;
+      font-size: .92rem;
       color: var(--text-muted);
       line-height: 1.65;
       text-align: justify;
@@ -759,20 +788,19 @@
       color: var(--accent); font-size: 1.2rem; line-height: 1.2;
     }
     .modal-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
-    .project-card { cursor: pointer; }
 
     /* ─── Footer ─────────────────────────────────────────────── */
     footer {
       background: var(--contact-bg);
-      color: rgba(255,255,255,.3);
+      color: rgba(255,255,255,.5);
       text-align: center;
       font-size: .78rem;
       padding: 22px 24px;
-      border-top: 1px solid rgba(255,255,255,.06);
+      border-top: 1px solid rgba(255,255,255,.08);
       transition: background .3s;
     }
     footer a {
-      color: rgba(255,255,255,.5);
+      color: rgba(255,255,255,.65);
       text-decoration: underline;
       text-underline-offset: 3px;
       transition: color .2s;
@@ -782,6 +810,8 @@
     /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width: 700px) {
       .nav-links { display: none; }
+      .theme-toggle { padding: 13px; }
+      .nav-cta { padding: 12px 18px; }
       #about .about-grid { grid-template-columns: 1fr; }
       .timeline-item { grid-template-columns: 1fr; }
       .timeline-item::after { display: none; }
@@ -792,6 +822,10 @@
       .edu-tl-date { text-align: left; font-size: .75rem; padding-bottom: 6px; }
       .edu-tl-dot { display: none; }
       .edu-parallel { grid-template-columns: 1fr; }
+      .skills-row { grid-template-columns: 1fr; gap: 10px; }
+      .lang-row { grid-template-columns: 1fr; gap: 6px; }
+      .next-item { grid-template-columns: 40px 1fr; }
+      .next-num { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -840,11 +874,9 @@
       </div>
       <div class="nav-right">
         <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
-          <!-- Moon: shown in light mode -->
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
-          <!-- Sun: shown in dark mode -->
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"/>
             <line x1="12" y1="1" x2="12" y2="3"/>
@@ -866,8 +898,9 @@
   <section id="hero">
     <div class="container">
       <div class="hero-inner">
-        <div class="hero-eyebrow">Milan, Italy</div>
+        <div class="hero-dateline">Milan, Italy</div>
         <h1 class="hero-name">Tommaso<br/>Mazieri</h1>
+        <span class="hero-mark" aria-hidden="true"></span>
         <p class="hero-tagline">
           Bridging <em>business strategy</em> and emerging technology.
           I develop understanding through practice — building, testing, and iterating until the picture is complete.
@@ -899,10 +932,9 @@
   <!-- ─── About ─────────────────────────────────────────────── -->
   <section id="about" class="section">
     <div class="container">
-      <p class="section-label fade-up">About</p>
-      <h2 class="section-title fade-up">Who I am</h2>
+      <h2 class="section-title">Who I am</h2>
       <div class="about-grid">
-        <div class="about-text fade-up">
+        <div class="about-text">
           <p>
             My approach to learning is fundamentally applied. When a concept or challenge captures
             my attention — whether a software architecture, a market dynamic, or a physical system —
@@ -927,37 +959,37 @@
             between strategic thinking and technical execution — and hold both frames simultaneously.
           </p>
         </div>
-        <div class="interests-panel fade-up">
+        <div class="interests-panel">
           <div class="interest-item">
-            <div class="interest-icon">♟️</div>
+            <div class="interest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></div>
             <div>
               <div class="interest-label">Strategy games</div>
               <div class="interest-desc">Boardgames and videogames — the same systems thinking, at lower stakes.</div>
             </div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">🥋</div>
+            <div class="interest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 8 12 10 6 14 18 16 12 21 12"/></svg></div>
             <div>
               <div class="interest-label">Judo</div>
               <div class="interest-desc">Currently on pause — looking to get back on the mat.</div>
             </div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">🌍</div>
+            <div class="interest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></div>
             <div>
               <div class="interest-label">Language learning</div>
               <div class="interest-desc">Italian native · English C1 · Spanish B1 · German in progress. The process of acquiring a language is interesting in itself.</div>
             </div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">🤖</div>
+            <div class="interest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l1.8 1.8M16.2 16.2 18 18M18 6l-1.8 1.8M7.8 16.2 6 18"/></svg></div>
             <div>
               <div class="interest-label">Tech &amp; entrepreneurship</div>
               <div class="interest-desc">Building things, understanding how they work, finding where they break.</div>
             </div>
           </div>
           <div class="interest-item interest-conviction">
-            <div class="interest-icon">🌾</div>
+            <div class="interest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V11"/><path d="M12 11C12 7 9 5 5 5c0 4.5 3.2 7 7 7Z"/><path d="M12 11c0-4 3-6 7-6 0 4.5-3.2 7-7 7Z"/></svg></div>
             <div>
               <div class="interest-label">Agricultural innovation</div>
               <div class="interest-desc">Agriculture triggered the industrial revolution. I think it's where the next one starts.</div>
@@ -973,11 +1005,10 @@
   <!-- ─── Experience ────────────────────────────────────────── -->
   <section id="experience" class="section">
     <div class="container">
-      <p class="section-label fade-up">Work</p>
-      <h2 class="section-title fade-up">Experience</h2>
+      <h2 class="section-title">Experience</h2>
       <div class="timeline">
 
-        <div class="timeline-item fade-up">
+        <div class="timeline-item">
           <div class="timeline-date">Dec 2025<br/>Feb 2026</div>
           <div class="timeline-dot"></div>
           <div class="timeline-content">
@@ -997,7 +1028,7 @@
           </div>
         </div>
 
-        <div class="timeline-item fade-up">
+        <div class="timeline-item">
           <div class="timeline-date">Oct 2023<br/>Feb 2024</div>
           <div class="timeline-dot"></div>
           <div class="timeline-content">
@@ -1017,7 +1048,7 @@
           </div>
         </div>
 
-        <div class="timeline-item fade-up">
+        <div class="timeline-item">
           <div class="timeline-date">Jun 2020<br/>Aug 2020</div>
           <div class="timeline-dot"></div>
           <div class="timeline-content">
@@ -1043,13 +1074,12 @@
   <!-- ─── Education ─────────────────────────────────────────── -->
   <section id="education" class="section">
     <div class="container">
-      <p class="section-label fade-up">Academic background</p>
-      <h2 class="section-title fade-up">Education</h2>
+      <h2 class="section-title">Education</h2>
       <div class="edu-timeline">
 
         <!-- Parallel masters — same period -->
-        <div class="edu-tl-item fade-up">
-          <div class="edu-tl-date">2024<br/>present</div>
+        <div class="edu-tl-item">
+          <div class="edu-tl-date">2024<br/>2026</div>
           <div class="edu-tl-dot"></div>
           <div>
             <div class="edu-concurrent-label">Concurrent degrees</div>
@@ -1057,15 +1087,15 @@
               <div class="edu-card">
                 <div class="edu-school">Università Cattolica · Milan</div>
                 <div class="edu-degree">MSc in Innovation &amp; Technology Management</div>
-                <div class="edu-meta"><span>Sep 2024 – present</span></div>
-                <div class="edu-grade">GPA 3.8 / 4.0 <span class="edu-grade-it">(28.8/30 Italian scale)</span></div>
+                <div class="edu-meta"><span>Sep 2024 – Jul 2026</span></div>
+                <div class="edu-grade">GPA 3.96 / 4.0 <span class="edu-grade-it">(109/110 Italian scale)</span></div>
                 <div class="edu-courses">Economics of Innovation · Project &amp; People Management · Design Thinking &amp; Start-Up Launch · Strategies for Emerging Technologies</div>
               </div>
               <div class="edu-card">
                 <div class="edu-school">Rome Business School · Rome</div>
                 <div class="edu-degree">Master in Agribusiness Management</div>
                 <div class="edu-meta"><span>Oct 2024 – Sep 2025</span></div>
-                <div class="edu-grade">GPA 3.7 / 4.0 <span class="edu-grade-it">(28/30 Italian scale)</span></div>
+                <div class="edu-grade">GPA 3.73 / 4.0 <span class="edu-grade-it">(28/30 Italian scale)</span></div>
                 <div class="edu-courses">Growth Strategy · New Technologies &amp; Innovation in Agribusiness · Sustainable Agribusiness</div>
               </div>
             </div>
@@ -1073,7 +1103,7 @@
         </div>
 
         <!-- Bachelor -->
-        <div class="edu-tl-item fade-up">
+        <div class="edu-tl-item">
           <div class="edu-tl-date">2020<br/>2024</div>
           <div class="edu-tl-dot"></div>
           <div class="edu-card">
@@ -1094,13 +1124,12 @@
   <!-- ─── Projects ──────────────────────────────────────────── -->
   <section id="projects" class="section">
     <div class="container">
-      <p class="section-label fade-up">What I've built</p>
-      <h2 class="section-title fade-up">Projects</h2>
+      <h2 class="section-title">Projects</h2>
       <div class="projects-grid">
 
-        <div class="project-card fade-up" onclick="openProject('boardgame')">
+        <div class="project-card" onclick="openProject('boardgame')">
           <div class="project-header">
-            <div class="project-icon">🎲</div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="8.5" cy="15.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg></div>
             <span class="project-type type-personal">Personal</span>
           </div>
           <div class="project-name">Real Estate Boardgame Companion App</div>
@@ -1114,9 +1143,9 @@
           </div>
         </div>
 
-        <div class="project-card fade-up" onclick="openProject('hydroponic')">
+        <div class="project-card" onclick="openProject('hydroponic')">
           <div class="project-header">
-            <div class="project-icon">🌱</div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V11"/><path d="M12 11C12 7 9 5 5 5c0 4.5 3.2 7 7 7Z"/><path d="M12 11c0-4 3-6 7-6 0 4.5-3.2 7-7 7Z"/></svg></div>
             <span class="project-type type-personal">Personal</span>
           </div>
           <div class="project-name">Home Hydroponic Farm</div>
@@ -1128,9 +1157,9 @@
           </div>
         </div>
 
-        <div class="project-card fade-up" onclick="openProject('agentic')">
+        <div class="project-card" onclick="openProject('agentic')">
           <div class="project-header">
-            <div class="project-icon">🤖</div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l1.8 1.8M16.2 16.2 18 18M18 6l-1.8 1.8M7.8 16.2 6 18"/></svg></div>
             <span class="project-type type-personal">Personal</span>
           </div>
           <div class="project-name">Design Thinking Agentic Workflows</div>
@@ -1143,9 +1172,9 @@
           </div>
         </div>
 
-        <div class="project-card fade-up" onclick="openProject('finance')">
+        <div class="project-card" onclick="openProject('finance')">
           <div class="project-header">
-            <div class="project-icon">💰</div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg></div>
             <span class="project-type type-personal">Personal</span>
           </div>
           <div class="project-name">Personal Finance Tracker</div>
@@ -1157,9 +1186,9 @@
           </div>
         </div>
 
-        <div class="project-card fade-up" onclick="openProject('techlab')">
+        <div class="project-card" onclick="openProject('techlab')">
           <div class="project-header">
-            <div class="project-icon">🏥</div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div>
             <span class="project-type type-academic">Academic</span>
           </div>
           <div class="project-name">Technology in Action Lab</div>
@@ -1171,9 +1200,9 @@
           </div>
         </div>
 
-        <div class="project-card fade-up" onclick="openProject('housing')">
+        <div class="project-card" onclick="openProject('housing')">
           <div class="project-header">
-            <div class="project-icon">🏠</div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h5v-6h2v6h5V10"/></svg></div>
             <span class="project-type type-academic">Academic</span>
           </div>
           <div class="project-name">Housing Start-up Concept</div>
@@ -1195,76 +1224,56 @@
   <!-- ─── Skills ────────────────────────────────────────────── -->
   <section id="skills" class="section">
     <div class="container">
-      <p class="section-label fade-up">Capabilities</p>
-      <h2 class="section-title fade-up">What I've learned</h2>
+      <h2 class="section-title">What I've learned</h2>
 
-      <div class="skills-grid">
-        <div class="skill-group fade-up">
-          <div class="skill-group-title">Technical</div>
-          <ul class="skill-list">
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Python</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">JavaScript</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">HTML / CSS</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">SQL / PostgreSQL</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">LangGraph</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Git</span></li>
+      <div class="skills-table">
+        <div class="skills-row">
+          <div class="skills-cat">Technical</div>
+          <ul class="skills-items">
+            <li>Python</li><li>JavaScript</li><li>HTML / CSS</li><li>SQL / PostgreSQL</li><li>LangGraph</li><li>Git</li>
           </ul>
         </div>
-        <div class="skill-group fade-up">
-          <div class="skill-group-title">Tools &amp; Platforms</div>
-          <ul class="skill-list">
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Claude Code</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Microsoft Office Suite</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Semrush (SEO)</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">CRM systems</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Accounting software</span></li>
+        <div class="skills-row">
+          <div class="skills-cat">Tools &amp; Platforms</div>
+          <ul class="skills-items">
+            <li>Claude Code</li><li>Microsoft Office Suite</li><li>Semrush (SEO)</li><li>CRM systems</li><li>Accounting software</li>
           </ul>
         </div>
-        <div class="skill-group fade-up">
-          <div class="skill-group-title">Business &amp; Strategy</div>
-          <ul class="skill-list">
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Consulting delivery</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Project management</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Design Thinking</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Lean Startup</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Corporate strategy</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">SEO &amp; digital marketing</span></li>
+        <div class="skills-row">
+          <div class="skills-cat">Business &amp; Strategy</div>
+          <ul class="skills-items">
+            <li>Consulting delivery</li><li>Project management</li><li>Design Thinking</li><li>Lean Startup</li><li>Corporate strategy</li><li>SEO &amp; digital marketing</li>
           </ul>
         </div>
-        <div class="skill-group fade-up">
-          <div class="skill-group-title">Soft Skills</div>
-          <ul class="skill-list">
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Stakeholder management</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Client communication</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Cross-functional teamwork</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Rapid learning</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Attention to detail</span></li>
-            <li class="skill-item"><span class="skill-dot"></span><span class="skill-name">Problem framing</span></li>
+        <div class="skills-row">
+          <div class="skills-cat">Soft Skills</div>
+          <ul class="skills-items">
+            <li>Stakeholder management</li><li>Client communication</li><li>Cross-functional teamwork</li><li>Rapid learning</li><li>Attention to detail</li><li>Problem framing</li>
           </ul>
         </div>
       </div>
 
       <!-- Languages -->
-      <div class="lang-grid">
-        <div class="lang-card fade-up">
+      <div class="lang-table">
+        <div class="lang-row">
           <div class="lang-name">Italian</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-scale="1"></div></div>
           <div class="lang-level">Native</div>
-          <div class="lang-bar"><div class="lang-bar-fill" data-width="100%" style="width:0%"></div></div>
         </div>
-        <div class="lang-card fade-up">
+        <div class="lang-row">
           <div class="lang-name">English</div>
-          <div class="lang-level">C1 — IELTS Academic 7.5</div>
-          <div class="lang-bar"><div class="lang-bar-fill" data-width="88%" style="width:0%"></div></div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-scale=".88"></div></div>
+          <div class="lang-level">C1 — IELTS 7.5</div>
         </div>
-        <div class="lang-card fade-up">
+        <div class="lang-row">
           <div class="lang-name">Spanish</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-scale=".55"></div></div>
           <div class="lang-level">B1</div>
-          <div class="lang-bar"><div class="lang-bar-fill" data-width="55%" style="width:0%"></div></div>
         </div>
-        <div class="lang-card fade-up">
+        <div class="lang-row">
           <div class="lang-name">German</div>
+          <div class="lang-bar"><div class="lang-bar-fill" data-scale=".28"></div></div>
           <div class="lang-level">A2 → B1 in progress</div>
-          <div class="lang-bar"><div class="lang-bar-fill" data-width="28%" style="width:0%"></div></div>
         </div>
       </div>
     </div>
@@ -1273,30 +1282,35 @@
   <!-- ─── Next Step ────────────────────────────────────────── -->
   <section id="next" class="section">
     <div class="container">
-      <p class="section-label fade-up">Next step</p>
-      <h2 class="section-title fade-up">What I'm looking for</h2>
-      <p class="next-intro fade-up">
+      <h2 class="section-title">What I'm looking for</h2>
+      <p class="next-intro">
         I want to work in <strong>innovation management</strong> — the work that moves an idea
         from concept to something real. That means a corporate innovation unit, an R&amp;D team,
         or an early-stage startup where I'd own concrete pieces of the process:
         scoping what gets built, running design research, coordinating the go-to-market.
         I'm not there to watch — I'm there to get things done.
       </p>
-      <div class="next-pillars">
-        <div class="next-pillar fade-up">
-          <div class="next-pillar-icon">🏗️</div>
-          <h4>Innovation &amp; R&amp;D management</h4>
-          <p>Project manager or coordinator inside a corporate innovation unit or R&amp;D function — running feasibility studies, managing the pipeline from idea to prototype, translating technical outputs into business decisions.</p>
+      <div class="next-list">
+        <div class="next-item">
+          <div class="next-num">1</div>
+          <div>
+            <h4>Innovation &amp; R&amp;D management</h4>
+            <p>Project manager or coordinator inside a corporate innovation unit or R&amp;D function — running feasibility studies, managing the pipeline from idea to prototype, translating technical outputs into business decisions.</p>
+          </div>
         </div>
-        <div class="next-pillar fade-up">
-          <div class="next-pillar-icon">🚀</div>
-          <h4>Early-stage startup</h4>
-          <p>A founding team or seed-stage company where I'd take ownership of real deliverables: defining MVP scope, running user interviews and design sprints, mapping the go-to-market, iterating on problem–solution fit.</p>
+        <div class="next-item">
+          <div class="next-num">2</div>
+          <div>
+            <h4>Early-stage startup</h4>
+            <p>A founding team or seed-stage company where I'd take ownership of real deliverables: defining MVP scope, running user interviews and design sprints, mapping the go-to-market, iterating on problem–solution fit.</p>
+          </div>
         </div>
-        <div class="next-pillar fade-up">
-          <div class="next-pillar-icon">🔁</div>
-          <h4>Where business and build overlap</h4>
-          <p>Product manager, innovation analyst, or venture builder roles where understanding the technology is as important as understanding the market — and where moving between both is the actual job.</p>
+        <div class="next-item">
+          <div class="next-num">3</div>
+          <div>
+            <h4>Where business and build overlap</h4>
+            <p>Product manager, innovation analyst, or venture builder roles where understanding the technology is as important as understanding the market — and where moving between both is the actual job.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1307,7 +1321,6 @@
   <!-- ─── Contact ───────────────────────────────────────────── -->
   <section id="contact">
     <div class="container">
-      <p class="section-label">Let's connect</p>
       <h2 class="section-title">Get in touch</h2>
       <p class="contact-subtitle">If you are working on something at the edge of innovation and think my profile is relevant — I would be glad to connect.</p>
       <div class="contact-links">
@@ -1342,25 +1355,33 @@
       localStorage.setItem('theme', next);
     }
 
-    // Fade-up on scroll
-    var observer = new IntersectionObserver(function(entries) {
+    // Language bars fill in once visible — the one scroll-triggered motion left on the page
+    var barObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
         if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          e.target.querySelectorAll('.lang-bar-fill[data-width]').forEach(function(bar) {
-            bar.style.width = bar.dataset.width;
+          e.target.querySelectorAll('.lang-bar-fill[data-scale]').forEach(function(bar) {
+            bar.style.transform = 'scaleX(' + bar.dataset.scale + ')';
           });
+          barObserver.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.lang-table').forEach(function(el) { barObserver.observe(el); });
 
-    document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
-    document.querySelectorAll('.lang-card').forEach(function(el) { observer.observe(el); });
+    // ─── Icon library for the project modal (matches the inline icons on each card) ──
+    var iconSvg = {
+      dice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="8.5" cy="15.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg>',
+      sprout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V11"/><path d="M12 11C12 7 9 5 5 5c0 4.5 3.2 7 7 7Z"/><path d="M12 11c0-4 3-6 7-6 0 4.5-3.2 7-7 7Z"/></svg>',
+      cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l1.8 1.8M16.2 16.2 18 18M18 6l-1.8 1.8M7.8 16.2 6 18"/></svg>',
+      trending: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg>',
+      cross: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
+      home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h5v-6h2v6h5V10"/></svg>'
+    };
 
     // ─── Project modal ────────────────────────────────────────
     var projects = {
       boardgame: {
-        icon: '🎲',
+        icon: 'dice',
         type: 'Personal',
         typeClass: 'type-personal',
         title: 'Real Estate Boardgame Companion App',
@@ -1382,7 +1403,7 @@
         tags: ['Python', 'JavaScript', 'HTML/CSS', 'Claude Code', 'Gemini CLI']
       },
       hydroponic: {
-        icon: '🌱',
+        icon: 'sprout',
         type: 'Personal',
         typeClass: 'type-personal',
         title: 'Home Hydroponic Farm',
@@ -1405,7 +1426,7 @@
         tags: ['Hydroponics', 'Arduino', 'Agritech', 'System Design', 'Sensors', 'DWC']
       },
       agentic: {
-        icon: '🤖',
+        icon: 'cpu',
         type: 'Personal',
         typeClass: 'type-personal',
         title: 'Design Thinking Agentic Workflows',
@@ -1427,7 +1448,7 @@
         tags: ['LangGraph', 'Claude Code', 'Python', 'Agentic AI', 'Prompt Engineering']
       },
       finance: {
-        icon: '💰',
+        icon: 'trending',
         type: 'Personal',
         typeClass: 'type-personal',
         title: 'Personal Finance Tracker',
@@ -1448,7 +1469,7 @@
         tags: ['Python', 'PostgreSQL', 'SQL', 'Data Modelling']
       },
       techlab: {
-        icon: '🏥',
+        icon: 'cross',
         type: 'Academic',
         typeClass: 'type-academic',
         title: 'Technology in Action Lab',
@@ -1469,7 +1490,7 @@
         tags: ['Tech Assessment', 'Research', 'Healthcare', 'Stakeholder Presentation', 'Consulting']
       },
       housing: {
-        icon: '🏠',
+        icon: 'home',
         type: 'Academic',
         typeClass: 'type-academic',
         title: 'Milan Community Start-up Concept',
@@ -1496,7 +1517,7 @@
     function openProject(id) {
       var p = projects[id];
       if (!p) return;
-      document.getElementById('modalIcon').textContent = p.icon;
+      document.getElementById('modalIcon').innerHTML = iconSvg[p.icon] || '';
       var typeEl = document.getElementById('modalType');
       typeEl.textContent = p.type;
       typeEl.className = 'modal-type ' + p.typeClass;
