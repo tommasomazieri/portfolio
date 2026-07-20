@@ -1127,6 +1127,21 @@
       <h2 class="section-title">Projects</h2>
       <div class="projects-grid">
 
+        <div class="project-card" onclick="openProject('siting')">
+          <div class="project-header">
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <span class="project-type type-competition">Competition</span>
+          </div>
+          <div class="project-name">DC Siting Intelligence Tool</div>
+          <div class="project-desc">Built a tool recommending optimal European data-center sites — balancing grid load, carbon footprint, and renewable access — in a 24-hour hackathon in Munich with two teammates. A sprint from raw grid data to a working, explainable ranking engine, under real time pressure and a real client brief.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">PyPSA-Eur</span>
+            <span class="tech-tag">Computer Vision</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+
         <div class="project-card" onclick="openProject('boardgame')">
           <div class="project-header">
             <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="8.5" cy="15.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg></div>
@@ -1370,6 +1385,7 @@
 
     // ─── Icon library for the project modal (matches the inline icons on each card) ──
     var iconSvg = {
+      bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
       dice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="8.5" cy="15.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg>',
       sprout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V11"/><path d="M12 11C12 7 9 5 5 5c0 4.5 3.2 7 7 7Z"/><path d="M12 11c0-4 3-6 7-6 0 4.5-3.2 7-7 7Z"/></svg>',
       cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l1.8 1.8M16.2 16.2 18 18M18 6l-1.8 1.8M7.8 16.2 6 18"/></svg>',
@@ -1380,6 +1396,28 @@
 
     // ─── Project modal ────────────────────────────────────────
     var projects = {
+      siting: {
+        icon: 'bolt',
+        type: 'Competition',
+        typeClass: 'type-competition',
+        title: 'DC Siting Intelligence Tool',
+        context: 'Energy Hack — a 24-hour hackathon in Munich hosted by TUM.ai and CDTM (Center for Digital Technology and Management), with challenge tracks sponsored by Invertix, E.ON, Enerparc Energy, and Vireo Ventures. Teamed up with Gabriele Sertorio and Lorenzo Labarile to take on Invertix\'s challenge: as AI\'s power demand strains the European grid, where should the next data center actually go?',
+        scope: 'Build an MVP that ranks at least three European sites for a new data center against a client\'s compute load, carbon budget, and cost priority — factoring in grid headroom, carbon intensity, and renewable supply mix, with results explainable to a non-technical decision-maker in under 30 seconds per query.',
+        activities: [
+          'Assembled a European grid dataset from PyPSA-Eur, carbon-intensity data (Ember/OWID), OpenStreetMap infrastructure, and Eurostat land prices into a normalized per-node scoring pipeline',
+          'Built a weighted, explainable ranking engine surfacing trade-offs across sites rather than a single black-box score',
+          'Added a satellite land-use classification layer — a Google Dynamic World CNN run against Microsoft Planetary Computer imagery — accelerated on GPU via ONNX/CUDA to cut per-site inference from seconds to about 0.1s',
+          'Built a web frontend for querying and filtering candidate sites, with results updating live as constraints change',
+          'Shipped a working end-to-end pipeline and UI inside the 24-hour window'
+        ],
+        learning: [
+          'Wiring heterogeneous public energy and geospatial datasets into one coherent scoring model under real time pressure',
+          'Keeping ML-driven site scoring explainable and legible to a non-technical stakeholder, instead of defaulting to a black box',
+          'GPU-accelerating a computer-vision pipeline (ONNX/CUDA) to make satellite land classification fast enough to run interactively',
+          'Working inside a fast three-person team — dividing data, model, and frontend cleanly against a hard 24-hour deadline'
+        ],
+        tags: ['Python', 'PyPSA-Eur', 'Computer Vision', 'ONNX/CUDA', 'JavaScript', 'GIS']
+      },
       boardgame: {
         icon: 'dice',
         type: 'Personal',
