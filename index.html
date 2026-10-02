@@ -1161,17 +1161,16 @@
 
         <div class="project-card" onclick="openProject('boardgame')">
           <div class="project-header">
-            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="8.5" cy="15.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg></div>
+            <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l6-3v15"/><path d="M10 21V4l10 4v13"/><path d="M2 21h20"/><path d="M14 11h2M14 15h2"/></svg></div>
             <span class="project-type type-personal">Personal</span>
           </div>
-          <div class="project-name">Real Estate Boardgame Companion App</div>
-          <div class="project-desc">Took a full-stack web companion for a real estate strategy boardgame from idea to working product in two weeks, solo, owning the data model, the backend and the interface. A self-directed exercise in end-to-end build, without external structure or guidance.</div>
+          <div class="project-name">Bricks &amp; Bribes</div>
+          <div class="project-desc">A real-estate strategy video game from GriffinBuilds Studio: bid in sealed auctions for city lots, build rent-earning buildings, and play action cards to sabotage rivals, against bots, with secret personal objectives. Built in Unreal Engine 5.8 in C++ only, with every screen coded in Slate/UMG and the rules in a separate, automatically tested engine. The free demo is out now on itch.io.</div>
           <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">HTML/CSS</span>
-            <span class="tech-tag">Claude Code</span>
-            <span class="tech-tag">Gemini CLI</span>
+            <span class="tech-tag">Unreal Engine 5.8</span>
+            <span class="tech-tag">C++</span>
+            <span class="tech-tag">Game Development</span>
+            <span class="tech-tag">Blender</span>
           </div>
         </div>
 
@@ -1373,6 +1372,7 @@
     // ─── Icon library for the project modal (matches the inline icons on each card) ──
     var iconSvg = {
       bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+      city: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l6-3v15"/><path d="M10 21V4l10 4v13"/><path d="M2 21h20"/><path d="M14 11h2M14 15h2"/></svg>',
       dice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1"/><circle cx="15.5" cy="8.5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="8.5" cy="15.5" r="1"/><circle cx="15.5" cy="15.5" r="1"/></svg>',
       sprout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V11"/><path d="M12 11C12 7 9 5 5 5c0 4.5 3.2 7 7 7Z"/><path d="M12 11c0-4 3-6 7-6 0 4.5-3.2 7-7 7Z"/></svg>',
       cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l1.8 1.8M16.2 16.2 18 18M18 6l-1.8 1.8M7.8 16.2 6 18"/></svg>',
@@ -1429,26 +1429,26 @@
         tags: ['Claude Code', 'CLI Tooling', 'Automated Testing', 'Open Source']
       },
       boardgame: {
-        icon: 'dice',
+        icon: 'city',
         type: 'Personal',
         typeClass: 'type-personal',
-        title: 'Real Estate Boardgame Companion App',
-        context: 'A personal project of my own design, currently on hold: a physical Real Estate boardgame played on a 3D city grid, covering properties, deals, ownership, and debt. The companion app is part of the same project, built to handle the financial and administrative side of play so the physical game can stay focused on strategy.',
-        scope: 'Build a web app where players join a shared session and use their phones to manage all the accounting and ownership logic of the game in real time, while the physical boardgame runs on the table in front of them. Each player sees their own state; transactions are logged and reflected across the session.',
+        title: 'Bricks & Bribes',
+        context: 'A real-estate strategy video game from my studio, GriffinBuilds Studio. Tagline: Bid · Build · Betray. The free demo is out now on itch.io.',
+        scope: 'Build a complete strategy game in Unreal Engine 5.8, in C++ only: sealed-bid auctions for city lots, constructing buildings that earn rent, and action cards to sabotage rivals, played against bots with secret personal objectives.',
         activities: [
-          'Mapped the full game logic to define what data the app needed to track (properties, balances, transactions, ownership transfers)',
-          'Designed the session architecture: how players join, how state is shared, how conflicts are resolved',
-          'Started development in PyCharm; used Gemini CLI for early scaffolding, then switched to Claude Code for the bulk of iteration',
-          'Handled multiplayer state sync, real-time updates, and edge cases like bankruptcy and asset liquidation',
-          'Reached a working, deployed app within two weeks from a blank slate'
+          'Wrote the game in C++ only, with no Blueprints, and built every screen in code with Slate/UMG',
+          'Separated the rules into their own engine module, covered by automated tests',
+          'Built procedurally generated maps and bot opponents',
+          'Modelled the 3D buildings in Blender',
+          'Set up localization in YAML, with English and Italian complete'
         ],
         learning: [
-          'Structuring a multi-player application: session management, shared state, concurrency issues',
-          'Data-driven programming: modelling a complex domain (game rules, ownership, financial flows) cleanly in code',
-          'Designing a highly modular architecture where each component exposes its own API and communicates through it, learning firsthand what that means for development speed, debugging, and maintainability',
-          'Practical use of agentic coding tools (Claude Code) as a development accelerant, not a replacement for design thinking'
+          'Keeping game rules independent from presentation so they can be tested on their own',
+          'Building a full UI in code instead of a visual editor',
+          'Designing bot opponents and secret objectives that keep a strategy game tense',
+          'Shipping a public demo as a one-person studio'
         ],
-        tags: ['Python', 'JavaScript', 'HTML/CSS', 'Claude Code', 'Gemini CLI']
+        tags: ['Unreal Engine 5.8', 'C++', 'Game Development', 'Blender']
       },
       hydroponic: {
         icon: 'sprout',
