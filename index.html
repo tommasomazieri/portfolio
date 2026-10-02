@@ -1165,12 +1165,13 @@
             <span class="project-type type-personal">Personal</span>
           </div>
           <div class="project-name">Bricks &amp; Bribes</div>
-          <div class="project-desc">A real-estate strategy video game from GriffinBuilds Studio: bid in sealed auctions for city lots, build rent-earning buildings, and play action cards to sabotage rivals, against bots, with secret personal objectives. Built in Unreal Engine 5.8 in C++ only, with every screen coded in Slate/UMG and the rules in a separate, automatically tested engine. The free demo is out now on itch.io.</div>
+          <div class="project-desc">The first game from GriffinBuilds Studio, my own one-person studio: a strategy game in which you and up to five rivals build a city together while fighting over every lot in it. You win plots in sealed-bid auctions, raise buildings that earn rent and lift or drag down the ones around them, and play cards to sabotage your opponents, all while chasing a secret objective nobody else can see. I built it from scratch in Unreal Engine 5.8, written entirely in C++, and its free demo is now out on itch.io.</div>
           <div class="project-tech">
             <span class="tech-tag">Unreal Engine 5.8</span>
             <span class="tech-tag">C++</span>
-            <span class="tech-tag">Game Development</span>
+            <span class="tech-tag">Game Design</span>
             <span class="tech-tag">Blender</span>
+            <span class="tech-tag">Claude Code</span>
           </div>
         </div>
 
@@ -1433,22 +1434,24 @@
         type: 'Personal',
         typeClass: 'type-personal',
         title: 'Bricks & Bribes',
-        context: 'A real-estate strategy video game from my studio, GriffinBuilds Studio. Tagline: Bid · Build · Betray. The free demo is out now on itch.io.',
-        scope: 'Build a complete strategy game in Unreal Engine 5.8, in C++ only: sealed-bid auctions for city lots, constructing buildings that earn rent, and action cards to sabotage rivals, played against bots with secret personal objectives.',
+        context: 'Games about the economy tend to fall into one of two traps: they simulate so much that you end up watching a spreadsheet, or they simplify so much that nothing in them behaves like the real thing. I founded GriffinBuilds Studio to make games in between, grounded in how markets and societies actually work but built around a challenge rather than a number to push up. Bricks & Bribes is its first title, and its tagline sums it up: Bid · Build · Betray.',
+        scope: 'Take a strategy game from an empty project to a public demo on my own, covering the code, the 3D art, the translations and the launch. In each match you face one to five bots on a shared city grid. Every player secretly holds a strategic archetype and a personal objective, and you win only by reaching the shared rent target while also completing a goal that nobody else at the table knows about.',
         activities: [
-          'Wrote the game in C++ only, with no Blueprints, and built every screen in code with Slate/UMG',
-          'Separated the rules into their own engine module, covered by automated tests',
-          'Built procedurally generated maps and bot opponents',
-          'Modelled the 3D buildings in Blender',
-          'Set up localization in YAML, with English and Italian complete'
+          'Wrote the entire game in C++, without Blueprints or the visual editor: every menu, screen and pop-up is built in code',
+          'Kept the rules in an engine of their own, separate from the graphics, so that a match can be replayed exactly from the same starting seed and the rules can be checked by automated tests without ever opening the game',
+          'Programmed bot opponents that see only what a human in their seat would see, and that weigh every legal move against their own secret objective',
+          'Built a map generator that only ever produces cities the rules allow, plus a painter for drawing maps by hand',
+          'Modelled the buildings in Blender and wrote the scripts that turn them into game-ready meshes',
+          'Organised the work around a small team of Claude Code agents, each with a single job: one writes and tests the code, one photographs the screens and checks them against the brief, one researches the rules of outside platforms',
+          'Prepared the launch the way a business would: a step-by-step rollout from the free itch.io demo towards Steam, the legal groundwork under German law, and a survey that turns player feedback into the next priorities'
         ],
         learning: [
-          'Keeping game rules independent from presentation so they can be tested on their own',
-          'Building a full UI in code instead of a visual editor',
-          'Designing bot opponents and secret objectives that keep a strategy game tense',
-          'Shipping a public demo as a one-person studio'
+          'Separating what a game does from how it looks: a rules engine that runs on its own is faster to test, easier to trust and safer to change',
+          'Designing opponents that play fair yet still feel sharp, and secret objectives that keep every player guessing about everyone else',
+          'Directing AI agents the way you would direct a team: a clear brief, an agreed definition of done, and a review of every result before it ships',
+          'Carrying a product all the way from the first line of code to a public release, together with the planning, legal work and community building a launch demands'
         ],
-        tags: ['Unreal Engine 5.8', 'C++', 'Game Development', 'Blender']
+        tags: ['Unreal Engine 5.8', 'C++', 'Game Design', 'Blender', 'Claude Code']
       },
       hydroponic: {
         icon: 'sprout',
